@@ -1,0 +1,62 @@
+# Compiled source #
+###################
+*.class
+*.war
+*.jar
+*.clj-kondo
+
+# Clojure REPL specific files #
+###############################
+.repl-history
+
+# Leiningen #
+#############
+/target/
+/lib/
+/classes/
+/checkouts/
+/.lein-deps-sum
+
+# leiningen-codox #
+###################
+/doc/
+
+# Boot #
+########
+/boot.properties
+/.boot/
+/.boop/
+
+# IntelliJ IDEA #
+#################
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse #
+###########
+.project
+.classpath
+.cache
+.settings/
+.loadpath
+
+# VS Code #
+###########
+.vscode/
+
+# MacOS #
+#########
+.DS_Store
+
+# Vim #
+#######
+*.swp
+
+.calva
+.clj-kondo
+.lsp
+.cpcache
+.nrepl-port
