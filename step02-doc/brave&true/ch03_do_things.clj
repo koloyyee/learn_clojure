@@ -119,6 +119,7 @@ failed-protagonist-names
 ;; access value with and w/o get 
 ({:a 1 :b 2 :c 3} :c)
 (get {:a 1 :b 2 :c 3} :a)
+((fn [x] (* 2 x)) 10)
 
 ;; default or fallback value. this is very useful just like nullish
 (:d {:a 1 :b 2 :c 3} "No gnome knows homes like Noah knows")
@@ -127,6 +128,8 @@ failed-protagonist-names
 [3 2 1]
 (get [3 2 1] 1)
 (get ["a" {:name "Pugsley Winterbottom"} "c"] 1)
+
+(get (get ["a" {:name "Pugsley Winterbottom"} "c"] 1) :name)
 (get-in ["a" {:name "Pugsley Winterbottom"} "c"] [1 :name])
 
 ;; verbose
@@ -157,7 +160,7 @@ failed-protagonist-names
 ;; verbose
 (hash-set 1 1 2 2)
 ;; #{1 1 2 2 } ;; error
-(conj #{:a :b})
+(conj #{:a :b} :c)
 (set [3 3 3 4 5 6 6])
 (set [{:a 1 :b 2} {:a 1 :b 2}])
 (set [[1 2 3] [2 3 4] [1 2 3]])
@@ -242,6 +245,17 @@ failed-protagonist-names
 (x-chop "John" "eats")
 (x-chop "John")
 
+(defn weird-arity
+  ([]
+   "Destiny dressed you this morning, my friend, and now Fear is
+     trying to pull off your pants. If you give up, if you give in,
+     you're gonna end up naked with Fear just standing there laughing
+     at your dangling unmentionables! - the Tick")
+  ([number]
+   (inc number)))
+(weird-arity)
+(weird-arity 2)
+
 ;; rest parameters
 (defn codger
   [name] (str "Get over here " name "!"))
@@ -262,8 +276,29 @@ failed-protagonist-names
 
 (p-rest 1 2 3 4)
 
+;; deconstruction
+(defn my-first
+  [[first-thing]]
+  first-thing)
+(my-first [2 3 4])
+
+(defn chooser [[first-thing second-thing & rest-things]]
+  (println (str "First choice is " first-thing))
+  (println (str "Second choice is " second-thing))
+  (println (str "Rest choices are "
+                "Here they are: "
+                (clojure.string/join ", " rest-things))))
+(chooser ["Marmalade", "Handsome Jack", "Pigpen", "Aquaman"])
+
+(defn case-when [[first-choice second-choice & rest-choices]]
+  (when (= first-choice 1) (println (str "Team 1!"))
+        (when (= second-choice 2) (println (str "Team 2!"))
+              (when (println (str "Combine to " (reduce + rest-choices)))))))
+(case-when [1 2 3 4])
+
 (println "Enter your name")
 (def rl (read-line))
+
 (str "Hello! " (clojure.string/capitalize rl))
 
 (def equals #(=  %1 %2))
