@@ -60,4 +60,3 @@
 
 (def game-history matrix)
 
-

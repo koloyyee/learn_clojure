@@ -1,5 +1,6 @@
 (ns ch03-do-things
-  (:require [clojure.string]))
+  (:require
+   [clojure.string]))
 
 ;; String
 (str "hello")
@@ -296,6 +297,196 @@ failed-protagonist-names
               (when (println (str "Combine to " (reduce + rest-choices)))))))
 (case-when [1 2 3 4])
 
+;; deconstruct map
+
+(def me-map {:name "David", :age 38})
+
+(defn destruct-map
+  "inside param, we use {} to destruct map, n and a are any word that represents the keyword like :name :age"
+  [{n :name a :age}]
+  (println (str n  " " a)))
+(destruct-map me-map)
+
+;; get Keywords
+(defn keys-only
+  "get the keys only with :keys, the params name must be the same as keywords"
+  [{:keys [name age]}]
+  (println (str "My name is " name))
+  (println (str "I am " age " years old")))
+
+(keys-only me-map)
+
+;; access original 
+(defn access-original
+  "retain access to the original map argument by using the :as keyword."
+  [{:keys [name age] :as me-map}]
+  (println (str "My name is " name))
+  (println (str "I am " age " years old")))
+
+(access-original me-map)
+
+;; Function body
+(defn who-showing
+  "Clojure automatically returns the last form evaluated"
+  []
+  (* 1 3 3 4)
+  30
+  "hello world")
+(who-showing)
+
+(defn number-comment
+  [x]
+  (if (> x 6)
+    "Oh my gosh! What a big number!"
+    "That number's OK, I guess"))
+(number-comment 5)
+(number-comment 7)
+
+#_(str " Clojure has no privileged functions. "
+       "+ is just a function, - is just a function, "
+       "and inc and map are just functions. "
+       "They’re no better than the functions you define yourself. So don’t let them give you any lip!")
+
+; Anonymous Functions
+(map (fn [name] (str "Hi, " name)) ["Darth Vader", "Yoda"])
+((fn [x] (* x 3)) 8)
+(map #(+ % 1) [1 2 3 4 5])
+(println (#(str %1 " and " %2) "cornbread" "tortilla"))
+(#(identity %&) 2 "bling blang" :name)
+(#(identity %&) 1 "bling" (get {:name "Taylor"} :name))
+
+; Returning Functions
+(defn inc-maker
+  "The returned functions are closures, which means that they can access 
+   all the variables that were in scope when the function was created."
+  [inc-by]
+  #(+ % inc-by))
+(def inc3 (inc-maker 3))
+(inc3 7)
+
+(defn inc4 [x] (#(+ % 4) x))
+(inc4 4)
+
+;; Pull them all together 
+(def asym-hobbit-body-parts [{:name "head" :size 3}
+                             {:name "left-eye" :size 1}
+                             {:name "left-ear" :size 1}
+                             {:name "mouth" :size 1}
+                             {:name "nose" :size 1}
+                             {:name "neck" :size 2}
+                             {:name "left-shoulder" :size 3}
+                             {:name "left-upper-arm" :size 3}
+                             {:name "chest" :size 10}
+                             {:name "back" :size 10}
+                             {:name "left-forearm" :size 3}
+                             {:name "abdomen" :size 6}
+                             {:name "left-kidney" :size 1}
+                             {:name "left-hand" :size 2}
+                             {:name "left-knee" :size 2}
+                             {:name "left-thigh" :size 4}
+                             {:name "left-lower-leg" :size 3}
+                             {:name "left-achilles" :size 1}
+                             {:name "left-foot" :size 2}])
+(defn matching-part
+  [part]
+  {:name (clojure.string/replace (:name part) #"^left-" "right-")
+   :size (:size part)})
+(defn symmetrize-body-parts
+  "Expects a seq of maps that hae a :name and :size"
+  [asym-body-parts]
+  (loop [remaining-asym-parts asym-body-parts final-body-parts []]
+    (if (empty? remaining-asym-parts)
+      final-body-parts
+      (let [[part & remaining] remaining-asym-parts]
+        (recur remaining
+               (into final-body-parts
+                     (set [part (matching-part part)])))))))
+(symmetrize-body-parts asym-hobbit-body-parts)
+
+;; what is let?
+;; let binds names to values, but only within the scope.
+(let [x 3] x)
+;; x ;;<- uncomment and see.
+(def dalmetian-list
+  ["Pongo" "Perdita" "Puppy 1" "Puppy 2"])
+(let [dal (take 2 dalmetian-list)]
+  dal)
+(def x 0) ;; def var lives in this ns
+x
+(let [x 1] x) ;; let var lives inside a scope
+x
+(let [x (inc x)] x)
+x
+(let [[pongo & dalmatians] dalmetian-list]
+  [pongo dalmatians])
+
+;; loop, clj's recusion
+(loop [iteration 0]
+  "this is a loop and recur version"
+  (println (str "Iteration " iteration))
+  (if (> iteration 3)
+    (println "Goodbye!")
+    (recur (inc iteration))))
+
+(defn loopy [x]
+  (loop [iteration 0]
+    (println (str "Iteration " iteration))
+    (if (> iteration x)
+      (println "Goodbye!")
+      (recur (inc iteration)))))
+
+(loopy 5)
+
+;; plain recursion
+(defn recursive-printer
+  "this is a plain recursion"
+  ([]
+   (recursive-printer 0))
+  ([iteration]
+   (println (str "Iteration " iteration))
+   (if (> iteration 3)
+     (println "Goodbye")
+     (recursive-printer (inc iteration)))))
+
+(recursive-printer)
+
+;; RegEx
+(re-find #"^left-" "left-hand")
+(re-find #"[0-9]+[a-d]+" "10abbaeeek")
+(defn matching-part
+  [part]
+  {:name (clojure.string/replace (:name part) #"^left-" "right-")
+   :size (:size part)})
+(matching-part {:name "left-eye" :size 1})
+(matching-part {:name "head" :size 3})
+
+;; Higher order function 
+(reduce + 15 [1 2 3 4])
+(map #(* % 2) [1 2 3 4])
+(defn my-reduce
+  "own implementation of reduce"
+  ([f init coll] ; take 3 arguments
+   (loop [result init remain coll] ; set temp var
+     (if (empty? remain) result
+         (recur (f result (first remain)) (rest remain)))))
+  ([f [head & tail]]
+   (my-reduce f head tail)))
+(my-reduce + 0 [1 2 3])
+
+;; improved version
+(defn better-symmetric-body-parts
+"improved version"
+[asym-body-parts]
+(reduce (fn [final-body-parts part]
+          ; from a set of parts into final-body-parts
+          (into final-body-parts (set [part (matching-part part)])))
+        []
+  asym-body-parts))
+(better-symmetric-body-parts asym-hobbit-body-parts)
+;; same result but different style
+(symmetrize-body-parts asym-hobbit-body-parts)
+
+;; IO 
 (println "Enter your name")
 (def rl (read-line))
 
