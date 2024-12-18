@@ -475,17 +475,28 @@ x
 
 ;; improved version
 (defn better-symmetric-body-parts
-"improved version"
-[asym-body-parts]
-(reduce (fn [final-body-parts part]
+  "improved version"
+  [asym-body-parts]
+  (reduce (fn [final-body-parts part]
           ; from a set of parts into final-body-parts
-          (into final-body-parts (set [part (matching-part part)])))
-        []
-  asym-body-parts))
+            (into final-body-parts (set [part (matching-part part)])))
+          []
+          asym-body-parts))
 (better-symmetric-body-parts asym-hobbit-body-parts)
 ;; same result but different style
 (symmetrize-body-parts asym-hobbit-body-parts)
 
+(defn hit
+  [asym-body-parts]
+  (let [sym-parts (better-symmetric-body-parts asym-body-parts)
+        body-part-size-sum (reduce + (map :size sym-parts))
+        target (rand body-part-size-sum)]
+    (loop [[part & remaining] sym-parts ;; finding the part
+           accumulated-size (:size part)]
+      (if (> accumulated-size target) part
+          (recur remaining (+ accumulated-size (:size (first remaining))))))))
+
+(hit asym-hobbit-body-parts)
 ;; IO 
 (println "Enter your name")
 (def rl (read-line))
@@ -500,3 +511,33 @@ x
 
 (def result (let [x 5] (+ 1 x)))
 (result)
+
+;; Exercise
+;; 1. Use the str, vector, list, hash-map, and hash-set functions.
+(str "usej" " the str function" "!")
+(into [1 2 3 4] [5 6 7 8])
+(into '(5 6 7 8) (conj  (list 1 2 3 4) 5))
+
+(get-in (into {:a 1, :b 2}
+              {:c 3, :d 4 , :b 6, :q {:d 2, :e 5}})
+        [:q :d])
+(conj #{1 2 3 4 5 6} 6)
+; 2.
+(defn add-100 [x] (+ 100 x))
+(add-100 10)
+(defn add-hundred [x]
+  ((fn [n] (+ 100 n))
+   x))
+(add-hundred 10)
+(defn add-mill [x] (#(+ % 100) x))
+(add-mill 10)
+; 3.
+(defn dec-maker [x] (fn [n] (- n x)))
+(defn dec9 [x] ((dec-maker 9) x))
+(dec9 10)
+; 4.
+(defn mapset [f coll]
+  (let [set-coll (into #{} coll) ]
+  (into #{} (map f set-coll))
+  ))
+(mapset inc [ 1 1 2 2 ])
