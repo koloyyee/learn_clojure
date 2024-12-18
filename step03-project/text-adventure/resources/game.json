@@ -1,0 +1,42 @@
+{
+	"world": {
+		"fantasy": {
+			"house": [
+				{
+					"candy": "Candy house"
+				},
+				{
+					"misty": "Misty lake"
+				}
+			],
+			"room": {
+				"candy": {
+					"north": "lollipop",
+					"east": "chocolate",
+					"south": "marshmallow",
+					"west": "popping candy"
+				}
+			}
+		},
+		"space": {
+			"house": [
+				{
+					"spaceship": "Spaceship"
+				},
+				{
+					"mars": "Mars"
+				}
+			]
+		},
+		"earth": {
+			"house": [
+				{
+					"apartment": "Apartment"
+				},
+				{
+					"lab": "Lab"
+				}
+			]
+		}
+	}
+}
