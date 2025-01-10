@@ -62,7 +62,7 @@
               :cheese-name "The Cheese of Turin"
               :lat 41.90
               :lng 12.45}])
-
+;; this is the url to show in the browser, 
 (defn url
   [filename]
   (str "file:///"
