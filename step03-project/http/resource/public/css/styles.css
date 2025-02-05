@@ -1,0 +1,14 @@
+
+body {
+	box-sizing: border-box;
+	background-color: cornsilk;
+}
+
+#header-links {
+	background-color: burlywood;
+	padding: 10px;
+}
+
+h1 {
+	color: cornflowerblue;
+}

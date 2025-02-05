@@ -1,42 +1,82 @@
 {
-	"world": {
-		"fantasy": {
-			"house": [
-				{
-					"candy": "Candy house"
-				},
-				{
-					"misty": "Misty lake"
-				}
-			],
-			"room": {
-				"candy": {
-					"north": "lollipop",
-					"east": "chocolate",
-					"south": "marshmallow",
-					"west": "popping candy"
-				}
-			}
-		},
-		"space": {
-			"house": [
-				{
-					"spaceship": "Spaceship"
-				},
-				{
-					"mars": "Mars"
-				}
-			]
-		},
-		"earth": {
-			"house": [
-				{
-					"apartment": "Apartment"
-				},
-				{
-					"lab": "Lab"
-				}
-			]
-		}
-	}
+  "world": {
+    "fantasy": {
+      "name": "CandyLand",
+      "direction": {
+        "north": "lollipop land",
+        "east": "chocolate swamp",
+        "south": "marshmallow cloud",
+        "west": "popping candy sky"
+      },
+      "monster": [
+        {
+          "name": "Biscuit",
+          "hp": 30,
+          "attack": 5
+        },
+        {
+          "name": "Gummy bear",
+          "hp": 50,
+          "attack": 10
+        },
+        {
+          "name": "Chocolate chip",
+          "hp": 80,
+          "attack": 20
+        }
+      ]
+    },
+    "space": {
+      "name": "MilkyWay",
+      "direction": {
+        "north": "mars",
+        "east": "mecury",
+        "south": "saturn",
+        "west": "jupiter"
+      },
+      "monster": [
+        {
+          "name": "Flyfly",
+          "hp": 30,
+          "attack": 5
+        },
+        {
+          "name": "Swimswim",
+          "hp": 50,
+          "attack": 10
+        },
+        {
+          "name": "Jumpjump",
+          "hp": 80,
+          "attack": 20
+        }
+      ]
+    },
+    "earth": {
+      "name": "Homeland",
+      "direction": {
+        "north": "storage",
+        "east": "garage",
+        "south": "toilet",
+        "west": "kitchen"
+      },
+      "monster": [
+        {
+          "name": "Mouse",
+          "hp": 30,
+          "attack": 5
+        },
+        {
+          "name": "Spider",
+          "hp": 50,
+          "attack": 10
+        },
+        {
+          "name": "Mold",
+          "hp": 80,
+          "attack": 20
+        }
+      ]
+    }
+  }
 }

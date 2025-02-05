@@ -1,0 +1,59 @@
+2025-02-01 18:03:17.182705-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "INTEGERS"; SQL statement:
+
+CREATE TABLE locations 
+( id bigint primary key auto_increment,
+x integers,
+y integer) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:93)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:315)
+	at next.jdbc.prepare$create.invokeStatic(prepare.clj:134)
+	at next.jdbc.prepare$create.invoke(prepare.clj:84)
+	at next.jdbc.result_set$eval1935$fn__1940.invoke(result_set.clj:928)
+	at next.jdbc.protocols$eval993$fn__1024$G__982__1033.invoke(protocols.clj:34)
+	at next.jdbc.result_set$eval1974$fn__1977.invoke(result_set.clj:1026)
+	at next.jdbc.protocols$eval993$fn__1024$G__982__1033.invoke(protocols.clj:34)
+	at next.jdbc$execute_one_BANG_.invokeStatic(jdbc.clj:274)
+	at next.jdbc$execute_one_BANG_.invoke(jdbc.clj:261)
+	at user$eval2283.invokeStatic(NO_SOURCE_FILE:1)
+	at user$eval2283.invoke(NO_SOURCE_FILE:1)
+	at clojure.lang.Compiler.eval(Compiler.java:7700)
+	at clojure.lang.Compiler.eval(Compiler.java:7655)
+	at clojure.core$eval.invokeStatic(core.clj:3232)
+	at clojure.core$eval.invoke(core.clj:3228)
+	at clojure.main$repl$read_eval_print__9244$fn__9247.invoke(main.clj:437)
+	at clojure.main$repl$read_eval_print__9244.invoke(main.clj:437)
+	at clojure.main$repl$fn__9253.invoke(main.clj:459)
+	at clojure.main$repl.invokeStatic(main.clj:459)
+	at clojure.main$repl_opt.invokeStatic(main.clj:523)
+	at clojure.main$main.invokeStatic(main.clj:668)
+	at clojure.main$main.doInvoke(main.clj:617)
+	at clojure.lang.RestFn.invoke(RestFn.java:400)
+	at clojure.lang.AFn.applyToHelper(AFn.java:152)
+	at clojure.lang.RestFn.applyTo(RestFn.java:135)
+	at clojure.lang.Var.applyTo(Var.java:707)
+	at clojure.main.main(main.java:40)
+2025-02-01 18:04:14.215573-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LOCATIONS" not found (this database is empty); SQL statement:
+INSERT INTO locations (x, y) VALUES (?, ?) [42104-232]
+2025-02-01 18:04:14.216460-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LOCATIONS" not found (this database is empty); SQL statement:
+INSERT INTO locations (x, y) VALUES (?, ?) [42104-232]

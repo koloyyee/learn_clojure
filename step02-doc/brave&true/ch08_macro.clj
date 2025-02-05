@@ -45,6 +45,7 @@
 ;; 1. ' - Quoting does not include a namespace if your code doesn’t include a namespace
 ;; 2. ` - Syntax quoting will always include the symbol’s full namespace
 ;; 3. ~ - allows you to unquote forms using the tilde
+;; 4. @ - symbol to dereference a reference type
 
 '(+ 1 (inc 1))
 `(+ 1 (inc 1))
