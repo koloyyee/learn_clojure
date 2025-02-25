@@ -1,0 +1,4 @@
+Hello, welcome to learning Clojure!
+Enjoy your journey with functional programming!
+Keep exploring the power of Lisp!
+Happy coding with Clojure!
