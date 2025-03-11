@@ -9,10 +9,11 @@
   It should return a vector of two things: (1) the value that was at that key 
   in the original collection, and (2) the updated collection.")
 
-(defn get-and-set [k v col] 
-  ( let [ original (get  col k )]
-  	[original (assoc  col k v ) ]
-		))
+(defn get-and-set [k v col]
+  [(get col k) ; old value
+   (assoc col k v); associate the new value to the key 
+   ])
+
 
 ["(defn get-and-set [k v col])"]
 
